@@ -1,0 +1,190 @@
+import tkinter as tk
+import matplotlib.pyplot as plt
+
+
+
+form = tk.Tk()
+form.title("Fizik Projem")
+form.geometry('600x400+600+350')
+
+def delete():
+    Entrydegera.delete(0,'end')
+    Entrydegerm.delete(0,'end')
+    Entrydegerf.delete(0,'end')
+def visibleForce():
+    labeldegera.place(width=100, heigh=25, x=30, y=150)
+    Entrydegera.place(width=100, heigh=25, x=140, y=150)
+
+    labeldegerm.place(width=100, heigh=25, x=30, y=200)
+    Entrydegerm.place(width=100,heigh=25,x=140,y=200)
+
+    labeldegerf.place(width=0, heigh=0, x=0, y=250)
+    Entrydegerf.place(width=0, heigh=0, x=120, y=250)
+
+    butonentry.config(command = Butonf)
+
+
+def visibleAccel():
+    labeldegerm.place(width=100, heigh=25, x=30, y=200)
+    Entrydegerm.place(width=100, heigh=25, x=140, y=200)
+
+    labeldegerf.place(width=100, heigh=25, x=30, y=250)
+    Entrydegerf.place(width=100, heigh=25, x=140, y=250)
+
+    labeldegera.place(width=0, heigh=0, x=0, y=150)
+    Entrydegera.place(width=0, heigh=0, x=120, y=150)
+
+    butonentry.config(command = Butona)
+
+
+
+def visibleMass():
+    labeldegerf.place(width=100, heigh=25, x=30, y=250)
+    Entrydegerf.place(width=100, heigh=25, x=140, y=250)
+
+    labeldegera.place(width=100, heigh=25, x=30, y=150)
+    Entrydegera.place(width=100, heigh=25, x=140, y=150)
+
+    labeldegerm.place(width=0, heigh=0, x=30, y=150)
+    Entrydegerm.place(width=0, heigh=0, x=140, y=150)
+
+    butonentry.config(command = Butonm)
+
+
+
+
+
+label1=tk.Label(form,font = '20')
+
+label1.pack(side = tk.BOTTOM)
+
+label=tk.Label(form,font = '20')
+
+label.pack(side =tk.LEFT)
+
+label2 = tk.Label(form,text = " F= M*A HESAPLAYICISI",font = ('','20','bold'))
+label2.pack(side=tk.TOP)
+
+
+
+
+
+labeldegera = tk.Label(text='a Değerini Giriniz : ')
+#labeldegera.pack()
+#labeldegera.place(width=100,heigh=25,x=0,y=150)
+Entrydegera = tk.Entry(fg='white',bg='black')
+#degera.pack()
+#degera.place(width=0,heigh=0,x=120,y=150)
+def donustur():
+    x = float(Entrydegera.get())
+
+    return x
+labeldegerm = tk.Label(text='m Değerini Giriniz : ')
+#labeldegerm.pack()
+#labeldegerm.place(width=0,heigh=0,x=0,y=200)
+
+Entrydegerm = tk.Entry(fg='white',bg='black')
+#Entrydegerm.pack()
+#Entrydegerm.place(width=0,heigh=0,x=120,y=200)
+
+labeldegerf = tk.Label(text='f Değerini Giriniz : ')
+#labeldegerf.pack()
+#labeldegerf.place(width=0,heigh=0,x=0,y=250)
+
+Entrydegerf = tk.Entry(fg='white',bg='black')
+#Entrydegerf.pack()
+#Entrydegerf.place(width=0,heigh=0,x=120,y=250)
+
+butonf= tk.Button(form,text= ' f Değerini Hesaplamak İçin Tıkla', command =visibleForce )
+butonf.pack(side = tk.TOP)
+
+butona= tk.Button(text= ' a Değerini Hesaplamak İçin Tıkla', command =visibleAccel )
+butona.pack(side = tk.TOP)
+
+butonm= tk.Button(text= ' m Değerini Hesaplamak İçin Tıkla', command =visibleMass )
+butonm.pack(side = tk.TOP)
+
+
+
+
+def veriAla():
+    etiket['text']=Entrydegera.get()
+def veriAlf():
+    etiket['text']=Entrydegerf.get()
+
+def veriAlm():
+    etiket['text']=Entrydegerm.get()
+
+
+def Butonm():
+    etiket['text']= "m Değeriniz : "+str(float(Entrydegerf.get())/float(Entrydegera.get()))
+    delete()
+
+def Butona():
+    etiket['text']= "a Değeriniz : "+str(float(Entrydegerf.get())/float(Entrydegerm.get()))
+    delete()
+
+
+def Butonf():
+    etiket['text']= "f Değeriniz : "+str(float(Entrydegera.get())*float(Entrydegerm.get()))
+    delete()
+
+
+
+
+butonentry = tk.Button(text = 'HESAPLA',command =Butonm)
+butonentry.pack(side = tk.BOTTOM)
+
+etiket = tk.Label(font=('Times','20','bold'))
+etiket.pack(side = tk.BOTTOM)
+
+
+
+#form.minsize(400,400)
+#form.maxsize(600,600)
+#form.resizable(False,False)
+#form.state('normal')
+
+#form.wm_attributes('-alpha',0.3)
+
+
+def vtGraph():
+    vt=donustur()*5
+    return vt
+
+def xtGraph():
+   xt= donustur()*5/2
+   return xt
+
+def xtbuton():
+    plt.plot([0,1,2,3,4,5],[0,donustur()/2,donustur()*2/2,donustur()*3/2,donustur()*4/2,donustur()*5/2],"r-",label ="xt")
+    plt.legend(loc = "best")
+    plt.show()
+
+
+def vtbuton():
+    plt.plot([0,1,2,3,4,5],[0,donustur(),donustur()*2,donustur()*3,donustur()*4,donustur()*5],"b-",label ="vt")
+    plt.legend(loc = "best")
+    plt.show()
+
+
+
+def atbuton():
+    plt.plot([0,1,2,3,4,5],[donustur(),donustur(),donustur(),donustur(),donustur(),donustur()],"g-",label = "at")
+    plt.legend(loc = "best")
+    plt.show()
+
+
+
+at = tk.Button(text = 'at graphic',command = atbuton)
+at.pack(side= tk.RIGHT)
+
+vt = tk.Button(text = 'vt graphic',command = vtbuton)
+vt.pack(side= tk.RIGHT)
+
+xt = tk.Button(text = 'xt graphic',command = xtbuton)
+xt.pack(side= tk.RIGHT)
+
+
+
+form.mainloop()
